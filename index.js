@@ -3,7 +3,7 @@ const app = express();
 
 //Route Handler
 app.get("/", (req,res)=>{
-  res.send ({hi: 'there'});
+  res.send ({bye: 'Johnny Boy'});
 });
 
 //app = Express App to register this route handler with
