@@ -6,6 +6,7 @@ const requireLogin = require("../middlewares/requireLogin");
 const requireCredits = require("../middlewares/requireCredits");
 const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
+const path = require("path");
 const { uniqBy } = require("lodash");
 
 const Survey = mongoose.model("surveys");
@@ -20,7 +21,7 @@ module.exports = (app) => {
   });
 
   app.get("/api/surveys/:surveyId/:choice", (req, res) => {
-    res.send("Thanks for your Vote!");
+    res.sendFile(path.join(__dirname, "/thankyou.html"));
   });
 
   app.post("/api/surveys/webhooks", (req, res) => {
@@ -86,5 +87,15 @@ module.exports = (app) => {
     } catch (err) {
       res.status(422).send(err);
     }
+  });
+
+  app.delete("/api/surveys/delete/:id", async (req, res) => {
+    await Survey.deleteOne({ _id: req.params.id });
+    const surveys = await Survey.find({ _user: req.user.id })
+      .sort({ dateSent: -1 })
+      .select({
+        recipients: false,
+      });
+    res.send(surveys);
   });
 };
