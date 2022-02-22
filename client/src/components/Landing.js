@@ -13,8 +13,8 @@ const Landing = () => {
           <span class="black-text">
             <i class="material-icons">info_outline</i>
             The front-end work is currently ongoing. To conduct a survey Please
-            Click on the Emaily Logo. Create a new survey using multiple
-            recipient list seperated by coma(,).
+            Click on the Emaily Logo after Logging In. Create a new survey using
+            multiple recipient list seperated by coma(,).
           </span>
         </div>
       </div>
